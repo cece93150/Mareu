@@ -18,4 +18,12 @@ public class DI {
     public static MeetingApiService getMeetingApiService() {
         return apiService;
     }
+
+    /**
+     * Get always a new instance on @{@link MeetingApiService}. only for tests
+     * @return
+     */
+    public static MeetingApiService getNewInstanceForTest() {
+        return new DummyMeetingApiService();}
+
 }

@@ -28,7 +28,7 @@ public class MeetingServiceTest {
     private MeetingApiService mApiService;
 
     @Before
-    public void setup() { mApiService = DI.getMeetingApiService(); }
+    public void setup() { mApiService = DI.getNewInstanceForTest(); }
 
     @Test
     public void getMeetingWithSuccess() {
