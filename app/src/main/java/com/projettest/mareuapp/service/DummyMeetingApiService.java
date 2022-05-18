@@ -33,8 +33,8 @@ public class DummyMeetingApiService implements MeetingApiService {
 
 
     @Override
-    public void deleteMeeting(int position) {
-        meetings.remove(position);
+    public void deleteMeeting(int id) {
+        meetings.remove(id);
     }
 
 
@@ -60,6 +60,6 @@ public class DummyMeetingApiService implements MeetingApiService {
                 result.add(meeting);
             }
         }
-     return result;
+        return result;
     }
 }

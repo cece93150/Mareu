@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/meetingfrag"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
-    android:id="@+id/meetingfrag"
     android:background="@color/white"
     android:padding="5dp">
 
@@ -12,11 +12,10 @@
         android:id="@+id/meeting_color"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:src="@drawable/ic_circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_circle"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -30,37 +29,38 @@
         app:layout_constraintEnd_toStartOf="@+id/meeting_delete"
         app:layout_constraintStart_toEndOf="@+id/meeting_color"
         app:layout_constraintTop_toTopOf="parent">
-    <TextView
-        android:id="@+id/meeting_name"
-        android:layout_width="210dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:textSize="13dp"
-        android:gravity="start"
-        android:padding="2dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:scrollHorizontally="true"
-        android:lines="1"
-        android:singleLine="true"
-        app:layout_constraintEnd_toStartOf="@+id/meeting_delete"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/meeting_color"
-        app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/meeting_name"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:gravity="start"
+            android:lines="1"
+            android:padding="2dp"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/meeting_delete"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/meeting_color"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/meeting_room"
             android:layout_width="210dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:textSize="13dp"
             android:gravity="start"
-            android:padding="2dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:scrollHorizontally="true"
             android:lines="1"
+            android:padding="2dp"
+            android:scrollHorizontally="true"
             android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="13dp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/meeting_delete"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/meeting_color"
@@ -86,7 +86,7 @@
             app:layout_constraintTop_toBottomOf="@+id/meeting_name"
             app:layout_constraintVertical_bias="0.722" />
 
-</LinearLayout>
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/meeting_delete"
@@ -94,12 +94,11 @@
         android:layout_height="30dp"
         android:layout_alignBottom="@id/meeting_color"
         android:layout_alignParentEnd="true"
+        android:background="@null"
         android:src="@drawable/ic_baseline_delete_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/black"
-        android:background="@null"
-        />
+        app:tint="@color/black" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

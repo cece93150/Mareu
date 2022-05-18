@@ -93,7 +93,7 @@
         app:layout_constraintBottom_toTopOf="@+id/add_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_date"/>
+        app:layout_constraintTop_toBottomOf="@+id/input_date" />
 
     <Button
         android:id="@+id/add_button"

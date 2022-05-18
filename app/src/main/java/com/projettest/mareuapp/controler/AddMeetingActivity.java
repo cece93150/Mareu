@@ -37,6 +37,7 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
     private String hour;
     private String name;
     private String members;
+    private int id;
 
 
     Spinner mSpinner;
@@ -45,6 +46,7 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
     EditText mHourInput;
     EditText mMembersInput;
     Button mButtonNewMeeting;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +73,7 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
             String roomName = meeting.getRoom();
             result.add(roomName);
         }
-        result.add(0,"Choisir une salle");
+        result.add(0, "Choisir une salle");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, result);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -104,7 +106,7 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
                 members = mMembersInput.getText().toString();
 
                 //vérifie que les champs de données sont remplies
-                if(room.matches("Choisir une salle"))
+                if (room.matches("Choisir une salle"))
                     Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner une salle de réunion !", Toast.LENGTH_SHORT).show();
                 else if (name.matches(""))
                     Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner un nom de réunion !", Toast.LENGTH_SHORT).show();
@@ -140,7 +142,7 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 //Définir la valeur de la date dans le calendrier
-                calendar.set(Calendar.YEAR,year);
+                calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 //Format de la date
@@ -161,8 +163,8 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 //Définir la valeur de l'heure dans le calendrier
-                calendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
-                calendar.set(Calendar.MINUTE,minute);
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar.set(Calendar.MINUTE, minute);
                 //Format de l'heure
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH'h'mm");
                 //Définir l'heure dans l'EditText
@@ -170,7 +172,7 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
             }
         };
         //creating TimePiker Dialog
-        new  TimePickerDialog(AddMeetingActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
+        new TimePickerDialog(AddMeetingActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
     }
 
     //obtenir la couleur en fonction du choix de la room
@@ -215,17 +217,14 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
 
         color = getRoomColor(mSpinner);
 
-        Meetings meetings = new Meetings(color,name, date, hour, room, members);
+        Meetings meetings = new Meetings(id, color, name, date, hour, room, members);
 
         try {
             mApiService.addMeeting(meetings);
-        }
-        catch (IllegalArgumentException e)
-        {
+        } catch (IllegalArgumentException e) {
             //
-            Toast.makeText(getBaseContext(),"Input Field is Empty", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Input Field is Empty", Toast.LENGTH_LONG).show();
         }
     }
-
 
 }

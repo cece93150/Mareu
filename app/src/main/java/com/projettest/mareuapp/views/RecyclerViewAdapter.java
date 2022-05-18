@@ -1,5 +1,6 @@
 package com.projettest.mareuapp.views;
 
+import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,13 +25,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     MeetingApiService mApiService;
     private List<Meetings> mMeetings;
 
-    public RecyclerViewAdapter(List<Meetings> meetings) { mMeetings = meetings; }
+    public RecyclerViewAdapter(List<Meetings> meetings) {
+        mMeetings = meetings;
+    }
 
-    public void upDateMeetings(List<Meetings> meetings){
+    @SuppressLint("NotifyDataSetChanged")
+    public void upDateMeetings(List<Meetings> meetings) {
         mMeetings = meetings;
         notifyDataSetChanged();
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -39,15 +45,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.displayMeetings(mMeetings.get(position));
+    public void onBindViewHolder(final ViewHolder holder, @SuppressLint("RecyclerView") final int id) {
+        holder.displayMeetings(mMeetings.get(id));
         holder.mDelete.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 mApiService = DI.getMeetingApiService();
-                mApiService.deleteMeeting(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, getItemCount());
+                mApiService.deleteMeeting(id);
+                notifyItemRemoved(id);
+                notifyItemRangeChanged(id, getItemCount());
             }
         });
     }
@@ -57,7 +63,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mMeetings.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public AppCompatImageView mColor;
         public TextView mMembers;
         public ImageButton mDelete;
@@ -72,7 +78,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             mMembers = view.findViewById(R.id.meeting_members);
             mDelete = view.findViewById(R.id.meeting_delete);
         }
+
         //item setText and color
+        @SuppressLint("SetTextI18n")
         public void displayMeetings(Meetings meetings) {
             mColor.setImageTintList(ColorStateList.valueOf(meetings.getColor()));
             mName.setText(meetings.getNameOfMeeting() + " - " + meetings.getDate() + " - " + meetings.getHour());

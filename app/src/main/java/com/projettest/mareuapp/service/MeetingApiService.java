@@ -18,25 +18,29 @@ public interface MeetingApiService {
 
     /**
      * delete a meeting
-     * @param position
+     *
+     * @param id
      */
-    void deleteMeeting(int position);
+    void deleteMeeting(int id);
 
     /**
      * create a meeting
+     *
      * @param meetings
      */
     void addMeeting(Meetings meetings);
 
     /**
      * Get meetings by room
+     *
      * @return List
      */
     List<Meetings> getMeetingsByRoom(String room);
 
     /**
      * Get meetings by date
-     * @return  List
+     *
+     * @return List
      */
     List<Meetings> getMeetingsByDate(String date);
 

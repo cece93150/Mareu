@@ -1,5 +1,7 @@
 package com.projettest.mareuapp.model;
 
+import java.util.Objects;
+
 public class Meetings {
 /**
  * Model object representing a Meeting
@@ -35,10 +37,15 @@ public class Meetings {
      */
     private String members;
 
+    /**
+     * id of meeting
+     */
+    public int id;
 
     /**
      * Constructor
      *
+     * @param id
      * @param color
      * @param nameOfMeeting
      * @param date
@@ -46,14 +53,25 @@ public class Meetings {
      * @param room
      * @param members
      */
-    public Meetings(int color, String nameOfMeeting, String date, String hour, String room, String members) {
+    public Meetings(int id, int color, String nameOfMeeting, String date, String hour, String room, String members) {
+        this.id = id;
         this.color = color;
         this.nameOfMeeting = nameOfMeeting;
         this.date = date;
         this.hour = hour;
         this.room = room;
         this.members = members;
+
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getColor() {
         return color;
     }

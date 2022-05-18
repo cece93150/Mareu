@@ -1,7 +1,6 @@
 package com.projettest.mareuapp;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -28,7 +27,9 @@ public class MeetingServiceTest {
     private MeetingApiService mApiService;
 
     @Before
-    public void setup() { mApiService = DI.getNewInstanceForTest(); }
+    public void setup() {
+        mApiService = DI.getNewInstanceForTest();
+    }
 
     @Test
     public void getMeetingWithSuccess() {
@@ -39,22 +40,21 @@ public class MeetingServiceTest {
 
     @Test
     public void deleteMeetingWithSuccess() {
-        List<Meetings> meetings = mApiService.getMeetings();
-        int count = meetings.size();
-        mApiService.deleteMeeting(0);
-        assertEquals(count-1,mApiService.getMeetings().size());
+        Meetings meetingsToDelete = mApiService.getMeetings().get(3);
+        mApiService.deleteMeeting(3);
+        assertFalse(mApiService.getMeetings().contains(meetingsToDelete));
     }
 
     @Test
     public void addMeetingWithSuccess() {
-        Meetings meetingToAdd = new Meetings(0xFFEF5350,"Test meeting", "15-05-2022", "09h00","Room 5","jack@lamzon.com");
+        Meetings meetingToAdd = new Meetings(17, 0xFFEF5350, "Test meeting", "15-05-2022", "09h00", "Room 5", "jack@lamzon.com");
         mApiService.addMeeting(meetingToAdd);
         assertTrue(mApiService.getMeetings().contains(meetingToAdd));
     }
 
     @Test
     public void filterMeetingByRoomWithSuccess() {
-        Meetings meetingInRoom1 = new Meetings(0x44BF0909,"Test meeting", "15-05-2022", "08h00", "Room 1","jack@lamzone.com");
+        Meetings meetingInRoom1 = new Meetings(16, 0x44BF0909, "Test meeting", "15-05-2022", "08h00", "Room 1", "jack@lamzone.com");
         mApiService.addMeeting(meetingInRoom1);
         assertFalse(mApiService.getMeetingsByRoom("Room 2").contains(meetingInRoom1));
         assertTrue(mApiService.getMeetingsByRoom("Room 1").contains(meetingInRoom1));
@@ -62,7 +62,7 @@ public class MeetingServiceTest {
 
     @Test
     public void filterMeetingByDateWithSuccess() {
-        Meetings meetingOnDate = new Meetings(0xFFFF9800,"Réunion Test","16-05-2022","10h00","Room 2","john@lamzone.com");
+        Meetings meetingOnDate = new Meetings(15, 0xFFFF9800, "Réunion Test", "16-05-2022", "10h00", "Room 2", "john@lamzone.com");
         mApiService.addMeeting(meetingOnDate);
         assertFalse(mApiService.getMeetingsByDate("18-05-2022").contains(meetingOnDate));
         assertTrue(mApiService.getMeetingsByDate("16-05-2022").contains(meetingOnDate));
