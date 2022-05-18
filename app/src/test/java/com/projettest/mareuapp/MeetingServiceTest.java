@@ -41,7 +41,7 @@ public class MeetingServiceTest {
     @Test
     public void deleteMeetingWithSuccess() {
         Meetings meetingsToDelete = mApiService.getMeetings().get(3);
-        mApiService.deleteMeeting(3);
+        mApiService.deleteMeeting(meetingsToDelete.getId());
         assertFalse(mApiService.getMeetings().contains(meetingsToDelete));
     }
 

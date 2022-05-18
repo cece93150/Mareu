@@ -64,7 +64,7 @@ public class Meetings {
 
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
