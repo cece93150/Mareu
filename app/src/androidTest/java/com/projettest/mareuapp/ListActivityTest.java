@@ -1,11 +1,13 @@
 package com.projettest.mareuapp;
 
+import static android.os.Build.VERSION_CODES.O;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.contrib.PickerActions.setDate;
+import static androidx.test.espresso.contrib.PickerActions.setTime;
 import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
 import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
@@ -22,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.espresso.contrib.PickerActions;
@@ -81,7 +84,14 @@ public class ListActivityTest {
         onData(allOf(is(instanceOf(String.class)), is(item))).perform();
         onView(withId(R.id.input_name)).perform(replaceText("Test meeting"));
         onView(withId(R.id.input_members)).perform(replaceText("jack@lamzone.com"));
+        onView(withId(R.id.input_date)).perform(click());
+        onView(withId(R.id.input_date)).perform(click());
         onView(isAssignableFrom(DatePicker.class)).perform(setDate(2022, 6, 15));
+        onView(withId(android.R.id.button1)).perform(click());
+        onView(withId(R.id.input_hour)).perform(click());
+        onView(withId(R.id.input_hour)).perform(click());
+        onView(isAssignableFrom(TimePicker.class)).perform(setTime(8,0));
+        onView(withId(android.R.id.button1)).perform(click());
         //onView(withId(R.id.input_hour)).perform(replaceText(LocalTime.of(11,0)));
         onView(withId(R.id.add_button)).perform(click());
         onView(withId(R.id.meeting_list)).check(withItemCount(itemCount + 1));
@@ -99,7 +109,9 @@ public class ListActivityTest {
     @Test
     public void filter_Meeting_By_Date_With_Success() {
         onView(withId(R.id.menu_filter)).perform(click());
-        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2022, 6, 10));
+        onView(withId(R.id.date_input)).perform(click());
+        onView(isAssignableFrom(DatePicker.class)).perform(setDate(2022, 6, 10));
+        onView(withId(android.R.id.button1)).perform(click());
         onView(withId(R.id.button_date_filter)).perform(click());
         onView(withId(R.id.meeting_list)).check(withItemCount(2));
     }
