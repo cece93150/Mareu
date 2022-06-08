@@ -75,12 +75,9 @@ public class FilterChoiceFragment extends DialogFragment {
         mDateFilter = view.findViewById(R.id.button_date_filter);
 
         //Spinner meeting room list
-        List<Meetings> meetings = DummyMeetingGenerator.DUMMY_MEETINGS;
-        List<String> result = new ArrayList<>();
-        for (Meetings meeting : meetings) {
-            String roomName = meeting.getRoom();
-            result.add(roomName);
-        }
+        List<String> rooms = DummyMeetingGenerator.DUMMY_ROOMS;
+        List<String> result = new ArrayList<>(rooms);
+
         result.add(0, "Toutes les salles");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, result);

@@ -177,12 +177,8 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
 
     public void SpinnerRoom() {
         //Spinner meeting room list
-        List<Meetings> meetings = DummyMeetingGenerator.DUMMY_MEETINGS;
-        List<String> result = new ArrayList<>();
-        for (Meetings meeting : meetings) {
-            String roomName = meeting.getRoom();
-            result.add(roomName);
-        }
+        List<String> rooms = DummyMeetingGenerator.DUMMY_ROOMS;
+        List<String> result = new ArrayList<>(rooms);
         result.add(0, "Choisir une salle");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, result);
