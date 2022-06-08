@@ -2,19 +2,20 @@ package com.projettest.mareuapp.service;
 
 import com.projettest.mareuapp.model.Meetings;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DummyMeetingApiService implements MeetingApiService {
 
-    private List<Meetings> meetings = DummyMeetingGenerator.createMeetings();
+    private List<Meetings> mMeetings = DummyMeetingGenerator.createMeetings();
 
     /**
      * {@inheritDoc}
      */
     @Override
     public List<Meetings> getMeetings() {
-        return meetings;
+        return mMeetings;
     }
 
     /**
@@ -25,16 +26,15 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public void addMeeting(Meetings meeting) {
         if (!meeting.getNameOfMeeting().equals("") && !meeting.getDate().equals("") && !meeting.getHour().equals("") && !meeting.getRoom().equals("Choisir une salle") && !meeting.getMembers().equals("")) {
-            meetings.add(meeting);
+            mMeetings.add(meeting);
         } else {
             throw new IllegalArgumentException();
         }
     }
 
-
     @Override
-    public void deleteMeeting(int id) {
-        meetings.remove(id);
+    public void deleteMeeting(Meetings meeting) {
+        mMeetings.remove(meeting);
     }
 
 
@@ -42,9 +42,9 @@ public class DummyMeetingApiService implements MeetingApiService {
     public List<Meetings> getMeetingsByRoom(String room) {
         List<Meetings> result = new ArrayList<>();
         if (room.equals("Toutes les salles")) {
-            return meetings;
+            return mMeetings;
         }
-        for (Meetings meeting : meetings) {
+        for (Meetings meeting : mMeetings) {
             if (meeting.getRoom().equals(room)) {
                 result.add(meeting);
             }
@@ -53,9 +53,12 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public List<Meetings> getMeetingsByDate(String date) {
+    public List<Meetings> getMeetingsByDate(LocalDate date) {
         List<Meetings> result = new ArrayList<>();
-        for (Meetings meeting : meetings) {
+        if (date == null) {
+            return mMeetings;
+        }
+        for (Meetings meeting : mMeetings) {
             if (meeting.getDate().equals(date)) {
                 result.add(meeting);
             }

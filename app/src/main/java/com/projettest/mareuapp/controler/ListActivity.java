@@ -1,5 +1,7 @@
 package com.projettest.mareuapp.controler;
 
+import static androidx.test.InstrumentationRegistry.getContext;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,7 +12,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 
 import com.projettest.mareuapp.views.RecyclerViewAdapter;
@@ -19,13 +23,15 @@ import com.projettest.mareuapp.model.Meetings;
 import com.projettest.mareuapp.service.MeetingApiService;
 import com.projettest.mareuapp.R;
 
+import java.time.LocalDate;
 import java.util.List;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity implements FilterChoiceFragment.OnFilterListener {
 
     private MeetingApiService mApiService;
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mAdapter;
+    EditText mDateInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,4 +93,21 @@ public class ListActivity extends AppCompatActivity {
         initList();
     }
 
+    @Override
+    public void onFilterByRoom(String room) {
+        List<Meetings> mMeetings = mApiService.getMeetingsByRoom(room);
+        if (mAdapter != null) {
+            mAdapter.upDateMeetings(mMeetings);
+        }
+    }
+
+    @Override
+    public void onFilterByDate(LocalDate date) {
+        List<Meetings> mMeetings = mApiService.getMeetingsByDate(date);
+        if (mAdapter != null) {
+            mAdapter.upDateMeetings(mMeetings);
+        }
+    }
 }
+
+

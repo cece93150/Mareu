@@ -1,7 +1,7 @@
 package com.projettest.mareuapp.model;
 
-import java.util.Objects;
-
+import java.time.LocalDate;
+import java.time.LocalTime;
 public class Meetings {
 /**
  * Model object representing a Meeting
@@ -20,12 +20,12 @@ public class Meetings {
     /**
      * Date of meeting
      */
-    private String date;
+    private LocalDate date;
 
     /**
      * Hour of meeting start
      */
-    private String hour;
+    private LocalTime hour;
 
     /**
      * meeting room
@@ -53,7 +53,7 @@ public class Meetings {
      * @param room
      * @param members
      */
-    public Meetings(int id, int color, String nameOfMeeting, String date, String hour, String room, String members) {
+    public Meetings(int id, int color, String nameOfMeeting, LocalDate date, LocalTime hour, String room, String members) {
         this.id = id;
         this.color = color;
         this.nameOfMeeting = nameOfMeeting;
@@ -88,19 +88,19 @@ public class Meetings {
         this.nameOfMeeting = nameOfMeeting;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public String getHour() {
+    public LocalTime getHour() {
         return hour;
     }
 
-    public void setHour(String hour) {
+    public void setHour(LocalTime hour) {
         this.hour = hour;
     }
 

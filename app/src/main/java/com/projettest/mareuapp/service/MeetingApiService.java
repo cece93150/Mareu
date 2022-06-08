@@ -2,6 +2,7 @@ package com.projettest.mareuapp.service;
 
 import com.projettest.mareuapp.model.Meetings;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface MeetingApiService {
@@ -19,9 +20,9 @@ public interface MeetingApiService {
     /**
      * delete a meeting
      *
-     * @param id
+     * @param
      */
-    void deleteMeeting(int id);
+    void deleteMeeting(Meetings meetings);
 
     /**
      * create a meeting
@@ -42,7 +43,7 @@ public interface MeetingApiService {
      *
      * @return List
      */
-    List<Meetings> getMeetingsByDate(String date);
+    List<Meetings> getMeetingsByDate(LocalDate date);
 
 
 }

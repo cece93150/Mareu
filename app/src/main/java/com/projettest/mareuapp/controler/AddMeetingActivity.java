@@ -23,6 +23,8 @@ import com.projettest.mareuapp.service.MeetingApiService;
 import com.projettest.mareuapp.R;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -32,9 +34,8 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
     private MeetingApiService mApiService;
     private int newMeetingColor;
     private String room;
-    private int color;
-    private String date;
-    private String hour;
+    private LocalDate date;
+    private LocalTime hour;
     private String name;
     private String members;
     private int id;
@@ -52,9 +53,7 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
-
         mApiService = DI.getMeetingApiService();
-
         mDateInput = findViewById(R.id.input_date);
         mHourInput = findViewById(R.id.input_hour);
         mSpinner = findViewById(R.id.spinner_room_choice);
@@ -66,63 +65,10 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
         mDateInput.setInputType(InputType.TYPE_NULL);
         mHourInput.setInputType(InputType.TYPE_NULL);
 
-        //Spinner meeting room list
-        List<Meetings> meetings = DummyMeetingGenerator.DUMMY_MEETINGS;
-        List<String> result = new ArrayList<>();
-        for (Meetings meeting : meetings) {
-            String roomName = meeting.getRoom();
-            result.add(roomName);
+        SpinnerRoom();
+        EditDateAndAddMeeting();
         }
-        result.add(0, "Choisir une salle");
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, result);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinner.setAdapter(adapter);
-        mSpinner.setOnItemSelectedListener(this);
-
-        //editer la date et l'heure
-        mDateInput.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDateDialog(mDateInput);
-            }
-        });
-        mHourInput.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShowTimeDialog(mHourInput);
-            }
-        });
-
-        //ajoute un nouveau meeting lorsque le bouton est clické
-        mButtonNewMeeting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //collecte les données saisie
-                name = mNameInput.getText().toString();
-                date = mDateInput.getText().toString();
-                hour = mHourInput.getText().toString();
-                members = mMembersInput.getText().toString();
-
-                //vérifie que les champs de données sont remplies
-                if (room.matches("Choisir une salle"))
-                    Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner une salle de réunion !", Toast.LENGTH_SHORT).show();
-                else if (name.matches(""))
-                    Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner un nom de réunion !", Toast.LENGTH_SHORT).show();
-                else if (date.matches(""))
-                    Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner une date de réunion !", Toast.LENGTH_SHORT).show();
-                else if (hour.matches(""))
-                    Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner une heure de réunion !", Toast.LENGTH_SHORT).show();
-                else if (members.matches(""))
-                    Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner un participant !", Toast.LENGTH_SHORT).show();
-                else {
-                    createMeeting();
-                    finish();
-                }
-            }
-        });
-    }
 
     //Get the meeting room chose
     @Override
@@ -141,13 +87,14 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                date = LocalDate.of(year,month +1,dayOfMonth);
                 //Définir la valeur de la date dans le calendrier
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 //Format de la date
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                //Définir l'heure dans l'EditText
+                //Définir la date dans l'EditText
                 mDateInput.setText(simpleDateFormat.format(calendar.getTime()));
             }
         };
@@ -163,6 +110,7 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 //Définir la valeur de l'heure dans le calendrier
+                hour = LocalTime.of(hourOfDay,minute);
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
                 //Format de l'heure
@@ -215,7 +163,7 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
     //Ajouter la réunion créée à la liste des réunions
     public void createMeeting() {
 
-        color = getRoomColor(mSpinner);
+        int color = getRoomColor(mSpinner);
 
         Meetings meetings = new Meetings(id, color, name, date, hour, room, members);
 
@@ -227,4 +175,65 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
         }
     }
 
-}
+    public void SpinnerRoom() {
+        //Spinner meeting room list
+        List<Meetings> meetings = DummyMeetingGenerator.DUMMY_MEETINGS;
+        List<String> result = new ArrayList<>();
+        for (Meetings meeting : meetings) {
+            String roomName = meeting.getRoom();
+            result.add(roomName);
+        }
+        result.add(0, "Choisir une salle");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, result);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(adapter);
+        mSpinner.setOnItemSelectedListener(this);
+    }
+
+        public void EditDateAndAddMeeting () {
+            //editer la date et l'heure
+            mDateInput.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDateDialog(mDateInput);
+                }
+            });
+            mHourInput.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ShowTimeDialog(mHourInput);
+                }
+            });
+
+            //ajoute un nouveau meeting lorsque le bouton est clické
+            mButtonNewMeeting.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //collecte les données saisie
+                    name = mNameInput.getText().toString();
+                    members = mMembersInput.getText().toString();
+
+                    //vérifie que les champs de données sont remplies
+                    if (room.matches("Choisir une salle"))
+                        Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner une salle de réunion !", Toast.LENGTH_SHORT).show();
+                    else if (name.matches(""))
+                        Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner un nom de réunion !", Toast.LENGTH_SHORT).show();
+                    else if (date == null)
+                        Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner une date de réunion !", Toast.LENGTH_SHORT).show();
+                    else if (hour == null)
+                        Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner une heure de réunion !", Toast.LENGTH_SHORT).show();
+                    else if (members.matches(""))
+                        Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner un participant !", Toast.LENGTH_SHORT).show();
+                    else {
+                        createMeeting();
+                        finish();
+                    }
+                }
+            });
+        }
+    }
+
+
+

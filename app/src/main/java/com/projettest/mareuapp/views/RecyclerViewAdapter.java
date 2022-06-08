@@ -25,6 +25,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     MeetingApiService mApiService;
     private List<Meetings> mMeetings;
 
+
     public RecyclerViewAdapter(List<Meetings> meetings) {
         mMeetings = meetings;
     }
@@ -43,17 +44,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return new ViewHolder(view);
     }
 
-
     @Override
-    public void onBindViewHolder(final ViewHolder holder, @SuppressLint("RecyclerView") final int id) {
-        holder.displayMeetings(mMeetings.get(id));
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        holder.displayMeetings(mMeetings.get(position));
         holder.mDelete.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mApiService = DI.getMeetingApiService();
-                mApiService.deleteMeeting(id);
-                notifyItemRemoved(id);
-                notifyItemRangeChanged(id, getItemCount());
+                int position = holder.getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    mApiService = DI.getMeetingApiService();
+                    mApiService.deleteMeeting(mMeetings.get(position));
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, getItemCount());
+                }
             }
         });
     }
