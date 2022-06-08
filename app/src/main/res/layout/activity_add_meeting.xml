@@ -46,17 +46,17 @@
                 android:id="@+id/input_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:hint="Choisir date"
-                android:inputType="none" />
+                android:inputType="none"
+                android:focusable="false"/>
 
             <EditText
                 android:id="@+id/input_hour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:hint="Choisir heure"
-                android:inputType="none" />
+                android:inputType="none"
+                android:focusable="false"/>
 
             <EditText
                 android:id="@+id/input_members"

@@ -85,14 +85,11 @@ public class ListActivityTest {
         onView(withId(R.id.input_name)).perform(replaceText("Test meeting"));
         onView(withId(R.id.input_members)).perform(replaceText("jack@lamzone.com"));
         onView(withId(R.id.input_date)).perform(click());
-        onView(withId(R.id.input_date)).perform(click());
         onView(isAssignableFrom(DatePicker.class)).perform(setDate(2022, 6, 15));
         onView(withId(android.R.id.button1)).perform(click());
         onView(withId(R.id.input_hour)).perform(click());
-        onView(withId(R.id.input_hour)).perform(click());
         onView(isAssignableFrom(TimePicker.class)).perform(setTime(8,0));
         onView(withId(android.R.id.button1)).perform(click());
-        //onView(withId(R.id.input_hour)).perform(replaceText(LocalTime.of(11,0)));
         onView(withId(R.id.add_button)).perform(click());
         onView(withId(R.id.meeting_list)).check(withItemCount(itemCount + 1));
     }
