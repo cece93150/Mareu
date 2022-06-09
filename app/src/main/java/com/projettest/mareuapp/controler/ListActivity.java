@@ -31,7 +31,7 @@ public class ListActivity extends AppCompatActivity implements FilterChoiceFragm
     private MeetingApiService mApiService;
     private RecyclerView mRecyclerView;
     private RecyclerViewAdapter mAdapter;
-    EditText mDateInput;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
