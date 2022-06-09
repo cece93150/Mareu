@@ -1,18 +1,15 @@
 package com.projettest.mareuapp;
 
-import static android.os.Build.VERSION_CODES.O;
+
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.replaceText;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.contrib.PickerActions.setDate;
 import static androidx.test.espresso.contrib.PickerActions.setTime;
 import static androidx.test.espresso.matcher.ViewMatchers.assertThat;
 import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.projettest.mareuapp.ItemCountAssertion.withItemCount;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
@@ -20,14 +17,11 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.AllOf.allOf;
 
 
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
+
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
-import androidx.test.espresso.ViewInteraction;
-import androidx.test.espresso.contrib.PickerActions;
+
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
@@ -35,17 +29,14 @@ import androidx.test.rule.ActivityTestRule;
 import com.projettest.mareuapp.controler.ListActivity;
 import com.projettest.mareuapp.di.DI;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
-import org.hamcrest.TypeSafeMatcher;
+
 import org.junit.Before;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+
 
 
 /**

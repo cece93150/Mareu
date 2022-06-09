@@ -2,6 +2,7 @@ package com.projettest.mareuapp.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
 public class Meetings {
 /**
  * Model object representing a Meeting

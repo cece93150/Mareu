@@ -67,7 +67,7 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
 
         SpinnerRoom();
         EditDateAndAddMeeting();
-        }
+    }
 
 
     //Get the meeting room chose
@@ -87,7 +87,7 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                date = LocalDate.of(year,month +1,dayOfMonth);
+                date = LocalDate.of(year, month + 1, dayOfMonth);
                 //Définir la valeur de la date dans le calendrier
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
@@ -110,7 +110,7 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 //Définir la valeur de l'heure dans le calendrier
-                hour = LocalTime.of(hourOfDay,minute);
+                hour = LocalTime.of(hourOfDay, minute);
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 calendar.set(Calendar.MINUTE, minute);
                 //Format de l'heure
@@ -187,49 +187,49 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
         mSpinner.setOnItemSelectedListener(this);
     }
 
-        public void EditDateAndAddMeeting () {
-            //editer la date et l'heure
-            mDateInput.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showDateDialog(mDateInput);
-                }
-            });
-            mHourInput.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ShowTimeDialog(mHourInput);
-                }
-            });
+    public void EditDateAndAddMeeting() {
+        //editer la date et l'heure
+        mDateInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDateDialog(mDateInput);
+            }
+        });
+        mHourInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowTimeDialog(mHourInput);
+            }
+        });
 
-            //ajoute un nouveau meeting lorsque le bouton est clické
-            mButtonNewMeeting.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        //ajoute un nouveau meeting lorsque le bouton est clické
+        mButtonNewMeeting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    //collecte les données saisie
-                    name = mNameInput.getText().toString();
-                    members = mMembersInput.getText().toString();
+                //collecte les données saisie
+                name = mNameInput.getText().toString();
+                members = mMembersInput.getText().toString();
 
-                    //vérifie que les champs de données sont remplies
-                    if (room.matches("Choisir une salle"))
-                        Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner une salle de réunion !", Toast.LENGTH_SHORT).show();
-                    else if (name.matches(""))
-                        Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner un nom de réunion !", Toast.LENGTH_SHORT).show();
-                    else if (date == null)
-                        Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner une date de réunion !", Toast.LENGTH_SHORT).show();
-                    else if (hour == null)
-                        Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner une heure de réunion !", Toast.LENGTH_SHORT).show();
-                    else if (members.matches(""))
-                        Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner un participant !", Toast.LENGTH_SHORT).show();
-                    else {
-                        createMeeting();
-                        finish();
-                    }
+                //vérifie que les champs de données sont remplies
+                if (room.matches("Choisir une salle"))
+                    Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner une salle de réunion !", Toast.LENGTH_SHORT).show();
+                else if (name.matches(""))
+                    Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner un nom de réunion !", Toast.LENGTH_SHORT).show();
+                else if (date == null)
+                    Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner une date de réunion !", Toast.LENGTH_SHORT).show();
+                else if (hour == null)
+                    Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner une heure de réunion !", Toast.LENGTH_SHORT).show();
+                else if (members.matches(""))
+                    Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner un participant !", Toast.LENGTH_SHORT).show();
+                else {
+                    createMeeting();
+                    finish();
                 }
-            });
-        }
+            }
+        });
     }
+}
 
 
 

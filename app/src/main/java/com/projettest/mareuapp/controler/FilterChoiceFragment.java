@@ -110,7 +110,7 @@ public class FilterChoiceFragment extends DialogFragment {
             }
         });
 
-        //DateTimePikerDialog
+        //DatePikerDialog
         mDateInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +124,7 @@ public class FilterChoiceFragment extends DialogFragment {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         //Définie la valeur de la date dans le calendrier
-                        date = LocalDate.of(year,month +1,dayOfMonth);
+                        date = LocalDate.of(year, month + 1, dayOfMonth);
                         calendar.set(Calendar.YEAR, year);
                         calendar.set(Calendar.MONTH, month);
                         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
