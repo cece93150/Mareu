@@ -61,7 +61,7 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
         mMembersInput = findViewById(R.id.input_members);
         mButtonNewMeeting = findViewById(R.id.add_button);
 
-        // masquer le clavier lorsque l'on clique sur l'EditText
+        // hide the keyboard when clicking on the EditText
         mDateInput.setInputType(InputType.TYPE_NULL);
         mHourInput.setInputType(InputType.TYPE_NULL);
 
@@ -88,11 +88,11 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 date = LocalDate.of(year, month + 1, dayOfMonth);
-                //Définir la valeur de la date dans le calendrier
+                //Set the date value in the calendar
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                //Format de la date
+                //Format of date
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
                 //Définir la date dans l'EditText
                 mDateInput.setText(simpleDateFormat.format(calendar.getTime()));
@@ -123,7 +123,7 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
         new TimePickerDialog(AddMeetingActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
     }
 
-    //obtenir la couleur en fonction du choix de la room
+    //get the color according to the choice of the room
     public int getRoomColor(Spinner mSpinner) {
         switch (room) {
             case "Room 1":
@@ -160,19 +160,11 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
         return newMeetingColor;
     }
 
-    //Ajouter la réunion créée à la liste des réunions
+    //Add the created meeting to the list of meetings
     public void createMeeting() {
-
         int color = getRoomColor(mSpinner);
-
         Meetings meetings = new Meetings(id, color, name, date, hour, room, members);
-
-        try {
-            mApiService.addMeeting(meetings);
-        } catch (IllegalArgumentException e) {
-            //
-            Toast.makeText(getBaseContext(), "Input Field is Empty", Toast.LENGTH_LONG).show();
-        }
+        mApiService.addMeeting(meetings);
     }
 
     public void SpinnerRoom() {
@@ -188,7 +180,7 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
     }
 
     public void EditDateAndAddMeeting() {
-        //editer la date et l'heure
+        //edit date and time
         mDateInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,11 +199,11 @@ public class AddMeetingActivity extends AppCompatActivity implements AdapterView
             @Override
             public void onClick(View v) {
 
-                //collecte les données saisie
+                //collects the data entered
                 name = mNameInput.getText().toString();
                 members = mMembersInput.getText().toString();
 
-                //vérifie que les champs de données sont remplies
+                //checks that the data fields are filled in
                 if (room.matches("Choisir une salle"))
                     Toast.makeText(AddMeetingActivity.this, "Vous devez renseigner une salle de réunion !", Toast.LENGTH_SHORT).show();
                 else if (name.matches(""))
