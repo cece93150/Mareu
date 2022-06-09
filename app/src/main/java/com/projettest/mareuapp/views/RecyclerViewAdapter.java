@@ -77,7 +77,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(view);
             mColor = view.findViewById(R.id.meeting_color);
             mName = view.findViewById(R.id.meeting_name);
-            mRoom = view.findViewById(R.id.meeting_room);
             mMembers = view.findViewById(R.id.meeting_members);
             mDelete = view.findViewById(R.id.meeting_delete);
         }
@@ -86,8 +85,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @SuppressLint("SetTextI18n")
         public void displayMeetings(Meetings meetings) {
             mColor.setImageTintList(ColorStateList.valueOf(meetings.getColor()));
-            mName.setText(meetings.getNameOfMeeting() + " - " + meetings.getDate() + " - " + meetings.getHour());
-            mRoom.setText(meetings.getRoom());
+            mName.setText(meetings.getNameOfMeeting() + " - " + meetings.getHour() + " - " + meetings.getRoom());
             mMembers.setText(meetings.getMembers());
         }
     }

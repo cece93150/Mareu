@@ -21,7 +21,7 @@ public abstract class DummyMeetingGenerator {
             new Meetings(8, 0xFF673AB7, "Meeting H", LocalDate.of(2022, 6, 11), LocalTime.of(10, 0), "Room 8", "jack@lamzone.com, john@lamzone.com, julie@lamzone.com"),
             new Meetings(9, 0xFF9C27B0, "Meeting I", LocalDate.of(2022, 6, 12), LocalTime.of(11, 0), "Room 9", "jack@lamzone.com, john@lamzone.com, julie@lamzone.com"),
             new Meetings(10, 0xFFF14D9A, "Meeting J", LocalDate.of(2022, 6, 13), LocalTime.of(12, 0), "Room 10", "jack@lamzone.com, john@lamzone.com, julie@lamzone.com"),
-            new Meetings(11, 0x44BF0909, "Meeting J", LocalDate.of(2022, 6, 13), LocalTime.of(12, 0), "Room 1", "jack@lamzone.com, john@lamzone.com, julie@lamzone.com")
+            new Meetings(11, 0x44BF0909, "Meeting K", LocalDate.of(2022, 6, 13), LocalTime.of(12, 0), "Room 1", "jack@lamzone.com, john@lamzone.com, julie@lamzone.com")
     );
     public static List<String> DUMMY_ROOMS = Arrays.asList(
             "Room 1",
